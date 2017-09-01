@@ -12,6 +12,7 @@ import com.example.nsc.retrofit.adapter.MovieAdapter;
 import com.example.nsc.retrofit.manager.ApiClient;
 import com.example.nsc.retrofit.manager.http.ApiService;
 import com.example.nsc.retrofit.model.MovieObject;
+import com.example.nsc.retrofit.model.Service;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<MovieObject.ResultsBean> arrayList = new ArrayList<>();
     private MovieAdapter adapter;
     RecyclerView rvMain;
-    private final static String API_KEY = "0e45a9729f32fedee5d33209474ff26a";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initInstance() {
-        if (API_KEY.isEmpty()) {
+        if (Service.API_KEY.isEmpty()) {
             Toast.makeText(this, "Input Api Key!", Toast.LENGTH_SHORT).show();
         }
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClientGoogle().create(ApiService.class);
 
-        Call<MovieObject> call = apiService.getTopRatedMovies(API_KEY);
+        Call<MovieObject> call = apiService.getTopRatedMovies(Service.API_KEY);
         call.enqueue(new Callback<MovieObject>() {
             @Override
             public void onResponse(Call<MovieObject> call, Response<MovieObject> response) {

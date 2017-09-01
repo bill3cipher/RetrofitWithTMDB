@@ -1,5 +1,7 @@
 package com.example.nsc.retrofit.manager;
 
+import com.example.nsc.retrofit.model.Service;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,19 +11,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String baseUrl = "http://api.themoviedb.org/3/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient(){
         if (retrofit == null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl(baseUrl)
+                    .baseUrl(Service.MOVIE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
         return retrofit;
     }
 
+
+    public static Retrofit getClientGoogle(){
+        if (retrofit == null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(Service.MOVIE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }
 
 
 }
